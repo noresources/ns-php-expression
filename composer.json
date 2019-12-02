@@ -1,0 +1,40 @@
+{
+	"name": "noresources/ns-php-expression",
+	"description": "General purpose expression system",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Renaud Guillard",
+			"email": "dev@nore.fr",
+			"role": "lead"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/noresources/ns-php-expression/issues"
+	},
+	"autoload": {
+		"psr-4": {
+			"NoreSources\\Expression\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"classmap": [ "tests/src/" ]
+	},
+	"scripts": {
+		"tests": "@php  ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests"
+	},
+	"minimum-stability": "dev",
+	"require": {
+		"php": ">= 5.5",
+		"noresources/ns-php-core": "~2.2"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^4.8"
+	},
+	"extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
