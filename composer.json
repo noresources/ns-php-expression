@@ -30,7 +30,7 @@
 		"noresources/ns-php-core": "~2.2"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "^4.8"
+		"phpunit/phpunit": "^7.0"
 	},
 	"extra": {
         "branch-alias": {
