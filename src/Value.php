@@ -8,7 +8,7 @@ namespace NoreSources\Expression;
 /**
  * Expression representing an arbitrary value
  */
-class Value implements Expression
+class Value implements ExpressionInterface
 {
 
 	/**
@@ -28,8 +28,9 @@ class Value implements Expression
 	 */
 	public function setValue($value)
 	{
-		if ($value instanceof Expression)
-			throw new \LogicException('Value is already an Expression');
+		if ($value instanceof ExpressionInterface)
+			throw new \LogicException(
+				'Value is already a ' . ExpressionInterface::class);
 		$this->value = $value;
 	}
 
@@ -43,7 +44,7 @@ class Value implements Expression
 	}
 
 	/**
-	 * Expression value
+	 * ExpressionInterface value
 	 *
 	 * @var mixed
 	 */

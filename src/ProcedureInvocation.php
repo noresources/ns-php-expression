@@ -9,15 +9,18 @@ use NoreSources\TypeDescription;
 use ArrayObject;
 
 /**
- * Function
+ * Expression representing a procedure invocation
  */
-class ProcedureInvocation implements Expression, \IteratorAggregate
+class ProcedureInvocation implements ExpressionInterface,
+	\IteratorAggregate
 {
 
 	/**
 	 *
 	 * @param string $name
+	 *        	Procedure name
 	 * @param array $arguments
+	 *        	Liisf of arguments
 	 */
 	public function __construct($name, $arguments = array())
 	{
@@ -69,18 +72,18 @@ class ProcedureInvocation implements Expression, \IteratorAggregate
 
 	/**
 	 *
-	 * @param Expression $argument
+	 * @param ExpressionInterface $argument
+	 *        	Argument to append
 	 * @throws \InvalidArgumentException
-	 * @return \NoreSources\Expression\ProcedureInvocation
+	 * @return $this
 	 */
 	public function appendArgument($argument)
 	{
-		if (!($argument instanceof Expression))
-		{
-			$n = Expression::class;
+		if (!($argument instanceof ExpressionInterface))
 			throw new \InvalidArgumentException(
-				TypeDescription::getName($argument) . ' is not a ' . $n);
-		}
+				'Argument ' . ($this->arguments->count() + 1) . ' ' .
+				TypeDescription::getName($argument) . ' is not a ' .
+				ExpressionInterface::class);
 
 		$this->arguments->append($argument);
 

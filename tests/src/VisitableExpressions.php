@@ -13,38 +13,44 @@ use NoreSources\Expression\Range;
 use NoreSources\Expression\Set;
 use NoreSources\Expression\Value;
 
-class VisitableObjectProperty extends ObjectProperty implements VisitableExpression
+class VisitableObjectProperty extends ObjectProperty implements
+	VisitableExpressionInterface
 {
-	use BasicExpressionVisitTrait;
+	use BasicExpressionInterfaceVisitTrait;
 }
 
-class VisitableRange extends Range implements VisitableExpression
+class VisitableRange extends Range implements
+	VisitableExpressionInterface
 {
-	use BasicExpressionVisitTrait;
+	use BasicExpressionInterfaceVisitTrait;
 }
 
-class VisitableBinaryOperation extends BinaryOperation implements VisitableExpression
+class VisitableBinaryOperation extends BinaryOperation implements
+	VisitableExpressionInterface
 {
-	use BasicExpressionVisitTrait;
+	use BasicExpressionInterfaceVisitTrait;
 }
 
-class VisitableIdentifier extends Identifier implements VisitableExpression
+class VisitableIdentifier extends Identifier implements
+	VisitableExpressionInterface
 {
-	use BasicExpressionVisitTrait;
+	use BasicExpressionInterfaceVisitTrait;
 }
 
-class VisitableProcedureInvocation extends ProcedureInvocation implements VisitableExpression
+class VisitableProcedureInvocation extends ProcedureInvocation implements
+	VisitableExpressionInterface
 {
-	use BasicExpressionVisitTrait;
+	use BasicExpressionInterfaceVisitTrait;
 }
 
-class VisitableValue extends Value implements VisitableExpression
+class VisitableValue extends Value implements
+	VisitableExpressionInterface
 {
-	use BasicExpressionVisitTrait;
+	use BasicExpressionInterfaceVisitTrait;
 }
 
-class VisitableSet extends Set implements VisitableExpression
+class VisitableSet extends Set implements VisitableExpressionInterface
 {
-	use BasicExpressionVisitTrait;
+	use BasicExpressionInterfaceVisitTrait;
 }
 

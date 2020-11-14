@@ -8,13 +8,13 @@ namespace NoreSources\Expression;
 /**
  * A list of arbitrary expressions
  */
-class Set implements Expression, \ArrayAccess, \Countable, \IteratorAggregate,
-	\NoreSources\ArrayRepresentation
+class Set implements ExpressionInterface, \ArrayAccess, \Countable,
+	\IteratorAggregate, \NoreSources\ArrayRepresentation
 {
 
 	/**
 	 *
-	 * @param array $expressionList
+	 * @param ExpressionInterface[] $expressionList
 	 */
 	public function __construct($expressionList = array())
 	{
@@ -39,7 +39,8 @@ class Set implements Expression, \ArrayAccess, \Countable, \IteratorAggregate,
 	{
 		if (!$this->isValidElement($value))
 			throw new \InvalidArgumentException(
-				\NoreSources\TypeDescription::getName($value) . ' is not a valid value');
+				\NoreSources\TypeDescription::getName($value) .
+				' is not a valid value');
 
 		$this->expressions->offsetSet($offset, $value);
 	}
@@ -64,18 +65,19 @@ class Set implements Expression, \ArrayAccess, \Countable, \IteratorAggregate,
 		return $this->expressions->getIterator();
 	}
 
-	public function append(Expression $value)
+	public function append(ExpressionInterface $value)
 	{
 		if (!$this->isValidElement($value))
 			throw new \InvalidArgumentException(
-				\NoreSources\TypeDescription::getName($value) . ' is not a valid value');
+				\NoreSources\TypeDescription::getName($value) .
+				' is not a valid value');
 
 		$this->expressions->append($value);
 	}
 
 	protected function isValidElement($element)
 	{
-		return ($element instanceof Expression);
+		return ($element instanceof ExpressionInterface);
 	}
 
 	/**

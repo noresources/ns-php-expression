@@ -8,7 +8,7 @@ namespace NoreSources\Expression;
 /**
  * Binary operator expression
  */
-class BinaryOperation implements Expression
+class BinaryOperation implements ExpressionInterface
 {
 
 	const ASSIGN = ':=';
@@ -51,14 +51,16 @@ class BinaryOperation implements Expression
 
 	/**
 	 *
-	 * @param Expression $leftOperand
+	 * @param ExpressionInterface $leftOperand
 	 *        	Left operand
-	 * @param unknown $operator
+	 * @param string $operator
 	 *        	Binary operator
-	 * @param Expression $rightOperand
+	 * @param ExpressionInterface $rightOperand
 	 *        	Right operand
 	 */
-	public function __construct($operator, Expression $leftOperand, Expression $rightOperand)
+	public function __construct($operator,
+		ExpressionInterface $leftOperand,
+		ExpressionInterface $rightOperand)
 	{
 		$this->leftOperand = $leftOperand;
 		$this->operator = $operator;
@@ -67,7 +69,7 @@ class BinaryOperation implements Expression
 
 	/**
 	 *
-	 * @return \NoreSources\Expression\Expression
+	 * @return ExpressionInterface
 	 */
 	public function getLeftOperand()
 	{
@@ -85,55 +87,67 @@ class BinaryOperation implements Expression
 
 	/**
 	 *
-	 * @return \NoreSources\Expression\Expression
+	 * @return ExpressionInterface
 	 */
 	public function getRightOperand()
 	{
 		return $this->rightOperand;
 	}
 
+	/**
+	 *
+	 * @return boolean
+	 */
 	public function isArithmetic()
 	{
 		return (\in_array($this->operator,
 			[
-				self::PLUS,
-				self::MINUS,
-				self::DIVIDE,
-				self::MULTIPLY,
-				self::MODULO
-			]));
-	}
-
-	public function isComparison()
-	{
-		return (\in_array($this->operator,
-			[
-				self::EQUAL,
-				self::DIFFER,
-				self::LESSER,
-				self::LESSER_EQUAL,
-				self::GREATER,
-				self::GREATER_EQUAL,
-				self::LOGICAL_AND,
-				self::LOGICAL_OR
-			]));
-	}
-
-	public function isBitwise()
-	{
-		return (\in_array($this->operator,
-			[
-				self::BITWISE_AND,
-				self::BITWISE_OR,
-				self::BITWISE_SHIFT_LEFT,
-				self::BITWISE_SHIFT_RIGHT,
-				self::BITWISE_XOR
+				static::PLUS,
+				static::MINUS,
+				static::DIVIDE,
+				static::MULTIPLY,
+				static::MODULO
 			]));
 	}
 
 	/**
 	 *
-	 * @var Expression
+	 * @return boolean
+	 */
+	public function isComparison()
+	{
+		return (\in_array($this->operator,
+			[
+				static::EQUAL,
+				static::DIFFER,
+				static::LESSER,
+				static::LESSER_EQUAL,
+				static::GREATER,
+				static::GREATER_EQUAL,
+				static::LOGICAL_AND,
+				static::LOGICAL_OR
+			]));
+	}
+
+	/**
+	 *
+	 * @return boolean
+	 */
+	public function isBitwise()
+	{
+		return (\in_array($this->operator,
+			[
+				static::BITWISE_AND,
+				static::BITWISE_OR,
+				static::BITWISE_SHIFT_LEFT,
+				static::BITWISE_SHIFT_RIGHT,
+				static::BITWISE_XOR
+			]));
+	}
+
+	/**
+	 *
+	 * @var ExpressionInterface
 	 */
 	private $leftOperand;
 
@@ -145,7 +159,7 @@ class BinaryOperation implements Expression
 
 	/**
 	 *
-	 * @var Expression
+	 * @var ExpressionInterface
 	 */
 	private $rightOperand;
 }

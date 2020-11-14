@@ -6,18 +6,20 @@
 namespace NoreSources\Test\Expression;
 
 /**
- * Implements the visitExpression method of the Expression interface by simply invoking the
- * visitExpression() method of ExpressionVisitor
+ * Implements the visitExpressionInterface method of the ExpressionInterface interface by simply
+ * invoking the
+ * visitExpressionInterface() method of ExpressionInterfaceVisitor
  */
-trait BasicExpressionVisitTrait
+trait BasicExpressionInterfaceVisitTrait
 {
 
 	/**
 	 *
-	 * @param ExpressionVisitor $visitor
+	 * @param ExpressionInterfaceVisitor $visitor
 	 */
-	public function visitExpression(ExpressionVisitor $visitor)
+	public function visitExpressionInterface(
+		ExpressionInterfaceVisitor $visitor)
 	{
-		$visitor->visitExpression($this);
+		$visitor->visitExpressionInterface($this);
 	}
 }

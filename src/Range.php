@@ -11,9 +11,14 @@ use NoreSources\TypeDescription;
 /**
  * An expression representing an interval between two expressions.
  */
-class Range implements Expression
+class Range implements ExpressionInterface
 {
 
+	/**
+	 *
+	 * @param ExpressionInterface[]|ExpressionInterface ...$arguments
+	 *        	Minimun and maximum boundary values
+	 */
 	public function __construct()
 	{
 		$argc = \func_num_args();
@@ -25,8 +30,10 @@ class Range implements Expression
 	}
 
 	/**
+	 * Get interval boundary
 	 *
-	 * @return \NoreSources\Expression\Expression[]
+	 * @return ExpressionInterface[] Two element ExpressionInterface array where
+	 *         index 0 is the minimum range value and index 1 is the maximum range value.
 	 */
 	public function getInterval()
 	{
@@ -36,11 +43,13 @@ class Range implements Expression
 	/**
 	 * Set interval values
 	 *
-	 * @param Expression[] ...$arguments
-	 *        	Array of expressions or
-	 * @throws \InvalidArgumentException /**
+	 * @param ExpressionInterface[] ...$arguments
+	 *        	One indexed array argument containing two ExpressionInterface
+	 *        	or tow ExpressionInterface arguments
 	 *
 	 * @throws \InvalidArgumentException
+	 *
+	 * @return $this
 	 */
 	public function setInterval()
 	{
@@ -61,15 +70,15 @@ class Range implements Expression
 			$max = Container::keyValue($argv, 1, null);
 		}
 
-		if (!(\is_null($min) || ($min instanceof Expression)))
+		if (!(\is_null($min) || ($min instanceof ExpressionInterface)))
 			throw new \InvalidArgumentException(
-				'Invalid minimum value. ' . Expression::class .
+				'Invalid minimum value. ' . ExpressionInterface::class .
 				' or null expected. Got ' .
 				TypeDescription::getName($min));
 
-		if (!(\is_null($max) || ($max instanceof Expression)))
+		if (!(\is_null($max) || ($max instanceof ExpressionInterface)))
 			throw new \InvalidArgumentException(
-				'Invalid maximum value. ' . Expression::class .
+				'Invalid maximum value. ' . ExpressionInterface::class .
 				' or null expected. Got ' .
 				TypeDescription::getName($max));
 
@@ -77,11 +86,13 @@ class Range implements Expression
 			$min,
 			$max
 		];
+
+		return $this;
 	}
 
 	/**
 	 *
-	 * @return \NoreSources\Expression\Expression
+	 * @return ExpressionInterface
 	 */
 	public function getMin()
 	{
@@ -90,7 +101,7 @@ class Range implements Expression
 
 	/**
 	 *
-	 * @return \NoreSources\Expression\Expression
+	 * @return ExpressionInterface
 	 */
 	public function getMax()
 	{
@@ -99,7 +110,7 @@ class Range implements Expression
 
 	/**
 	 *
-	 * @var Expression[]
+	 * @var ExpressionInterface[]
 	 */
 	private $interval;
 }

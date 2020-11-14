@@ -10,7 +10,7 @@ use NoreSources\StringRepresentation;
 /**
  * Arbitrary identifier
  */
-class Identifier implements Expression, StringRepresentation
+class Identifier implements ExpressionInterface, StringRepresentation
 {
 
 	/**

@@ -5,30 +5,31 @@
  */
 namespace NoreSources\Test\Expression;
 
-use NoreSources\Expression\Expression;
+use NoreSources\Expression\ExpressionInterface;
 
 /**
  * Exception raised while visiting expressions
  */
-class ExpressionVisitException extends \ErrorException
+class ExpressionInterfaceVisitException extends \ErrorException
 {
 
 	/**
 	 *
-	 * @var ExpressionVisitor
+	 * @var ExpressionInterfaceVisitor
 	 */
 	public $visitor;
 
 	/**
 	 *
-	 * @var Expression
+	 * @var ExpressionInterface
 	 */
 	public $expression;
 
 	/**
 	 *
 	 * @param
-	 *        	ExpressionVisitException|Expression|string|number Visitor, current Expression,
+	 *        	ExpressionInterfaceVisitException|ExpressionInterface|string|number Visitor,
+	 *        	current ExpressionInterface,
 	 *        	error message and error code
 	 */
 	public function __construct()
@@ -40,9 +41,9 @@ class ExpressionVisitException extends \ErrorException
 		$code = 0;
 		foreach ($args as $arg)
 		{
-			if ($arg instanceof ExpressionVisitor)
+			if ($arg instanceof ExpressionInterfaceVisitor)
 				$this->visitor = $arg;
-			elseif ($arg instanceof Expression)
+			elseif ($arg instanceof ExpressionInterface)
 				$this->expression = $arg;
 			elseif (\is_string($arg))
 				$text .= $arg;
@@ -54,20 +55,20 @@ class ExpressionVisitException extends \ErrorException
 	}
 }
 
-interface ExpressionVisitor
+interface ExpressionInterfaceVisitor
 {
 
 	/**
 	 * Initiate visit process
 	 *
-	 * @param Expression $expression
+	 * @param ExpressionInterface $expression
 	 */
-	function dispatch(Expression $expression);
+	function dispatch(ExpressionInterface $expression);
 
 	/**
-	 * Called by visited Expressions
+	 * Called by visited ExpressionInterfaces
 	 *
-	 * @param Expression $expression
+	 * @param ExpressionInterface $expression
 	 */
-	function visitExpression(Expression $expression);
+	function visitExpressionInterface(ExpressionInterface $expression);
 }

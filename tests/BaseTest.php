@@ -1,6 +1,12 @@
 <?php
-namespace NoreSources\Expression;
+/**
+ * Copyright © 2012 - 2020 by Renaud Guillard (dev@nore.fr)
+ * Distributed under the terms of the MIT License, see LICENSE
+ */
+namespace NoreSources\Test\Expression;
 
+use NoreSources\Expression\Range;
+use NoreSources\Expression\Value;
 use PHPUnit\Framework\TestCase;
 
 final class BaseTest extends TestCase

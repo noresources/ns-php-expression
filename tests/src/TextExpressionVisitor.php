@@ -8,13 +8,14 @@ namespace NoreSources\Test\Expression;
 use NoreSources\TypeConversion as C;
 use NoreSources\TypeDescription;
 use NoreSources\TypeDescription as D;
-use NoreSources\Expression\Expression;
+use NoreSources\Expression\ExpressionInterface;
 use NoreSources\Expression\Identifier;
 
 /**
  * Proof of Concept visitor displaying textual representation of the expression
  */
-class TextExpressionVisitor implements ExpressionVisitor
+class TextExpressionInterfaceVisitor implements
+	ExpressionInterfaceVisitor
 {
 
 	public function __construct()
@@ -42,24 +43,26 @@ class TextExpressionVisitor implements ExpressionVisitor
 		return $this->text;
 	}
 
-	public function dispatch(Expression $expression)
+	public function dispatch(ExpressionInterface $expression)
 	{
-		if (!($expression instanceof VisitableExpression))
+		if (!($expression instanceof VisitableExpressionInterface))
 			throw new \InvalidArgumentException(
-				TypeDescription::getName($expression) . ' is not a ' . VisitableExpression::class);
+				TypeDescription::getName($expression) . ' is not a ' .
+				VisitableExpressionInterface::class);
 
 		$this->text = '';
-		$expression->visitExpression($this);
+		$expression->visitExpressionInterface($this);
 	}
 
-	public function visitExpression(Expression $expression)
+	public function visitExpressionInterface(
+		ExpressionInterface $expression)
 	{
 		if ($expression instanceof VisitableRange)
 		{
 			$this->text .= '[';
-			$expression->getMin()->visitExpression($this);
+			$expression->getMin()->visitExpressionInterface($this);
 			$this->text .= ', ';
-			$expression->getMax()->visitExpression($this);
+			$expression->getMax()->visitExpressionInterface($this);
 			$this->text .= ']';
 		}
 		elseif ($expression instanceof VisitableSet)
@@ -70,24 +73,28 @@ class TextExpressionVisitor implements ExpressionVisitor
 			{
 				if ($index++ > 0)
 					$this->text .= ', ';
-				$e->visitExpression($this);
+				$e->visitExpressionInterface($this);
 			}
 			$this->text .= '}';
 		}
 		elseif ($expression instanceof VisitableBinaryOperation)
 		{
-			if (!($expression->getLeftOperand() instanceof VisitableExpression))
+			if (!($expression->getLeftOperand() instanceof VisitableExpressionInterface))
 				throw new \InvalidArgumentException(
-					TypeDescription::getName($expression->getLeftOperand()) . ' is not a ' .
-					VisitableExpression::class);
+					TypeDescription::getName(
+						$expression->getLeftOperand()) . ' is not a ' .
+					VisitableExpressionInterface::class);
 
-			if (!($expression->getRightOperand() instanceof VisitableExpression))
+			if (!($expression->getRightOperand() instanceof VisitableExpressionInterface))
 				throw new \InvalidArgumentException(
-					TypeDescription::getName($expression->getRightOperand()) . ' is not a ' .
-					VisitableExpression::class);
-			$expression->getLeftOperand()->visitExpression($this);
+					TypeDescription::getName(
+						$expression->getRightOperand()) . ' is not a ' .
+					VisitableExpressionInterface::class);
+			$expression->getLeftOperand()->visitExpressionInterface(
+				$this);
 			$this->text .= ' ' . $expression->getOperator() . ' ';
-			$expression->getRightOperand()->visitExpression($this);
+			$expression->getRightOperand()->visitExpressionInterface(
+				$this);
 		}
 		elseif ($expression instanceof VisitableUnaryOperation)
 		{
@@ -102,7 +109,7 @@ class TextExpressionVisitor implements ExpressionVisitor
 			$parent = $expression->getObjectIdentifier();
 			if ($parent instanceof Identifier)
 			{
-				$parent->visitExpression($this);
+				$parent->visitExpressionInterface($this);
 				$this->text .= '.';
 			}
 			$this->text .= $expression->getIdentifier();
@@ -126,12 +133,13 @@ class TextExpressionVisitor implements ExpressionVisitor
 			{
 				if ($index++ > 0)
 					$this->text .= ', ';
-				$arg->visitExpression($this);
+				$arg->visitExpressionInterface($this);
 			}
 			$this->text .= ')';
 		}
 		else
-			throw new ExpressionVisitException($this, $expression,
+			throw new ExpressionInterfaceVisitException($this,
+				$expression,
 				'Unrecognized expression ' . D::getName($expression));
 	}
 

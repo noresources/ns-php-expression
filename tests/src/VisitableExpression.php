@@ -5,15 +5,16 @@
  */
 namespace NoreSources\Test\Expression;
 
-use NoreSources\Expression\Expression;
+use NoreSources\Expression\ExpressionInterface;
 
-interface VisitableExpression extends Expression
+interface VisitableExpressionInterface extends ExpressionInterface
 {
 
 	/**
 	 * Called by visitor
 	 *
-	 * @param ExpressionVisitor $visitor
+	 * @param ExpressionInterfaceVisitor $visitor
 	 */
-	function visitExpression(ExpressionVisitor $visitor);
+	function visitExpressionInterface(
+		ExpressionInterfaceVisitor $visitor);
 }

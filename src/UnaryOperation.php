@@ -8,7 +8,7 @@ namespace NoreSources\Expression;
 /**
  * Unary operator expression
  */
-class UnaryOperation implements Expression
+class UnaryOperation implements ExpressionInterface
 {
 
 	const MINUS = '-';
@@ -24,10 +24,10 @@ class UnaryOperation implements Expression
 	 *
 	 * @param string $operator
 	 *        	Unary operator
-	 * @param Expression $operand
+	 * @param ExpressionInterface $operand
 	 *        	Operand
 	 */
-	public function __construct($operator, Expression $operand)
+	public function __construct($operator, ExpressionInterface $operand)
 	{
 		$this->operand = $operator;
 		$this->operand = $operand;
@@ -44,7 +44,7 @@ class UnaryOperation implements Expression
 
 	/**
 	 *
-	 * @return \NoreSources\Expression\Expression
+	 * @return \NoreSources\ExpressionInterface\ExpressionInterface
 	 */
 	public function getOperand()
 	{
@@ -59,7 +59,7 @@ class UnaryOperation implements Expression
 
 	/**
 	 *
-	 * @var Expression
+	 * @var ExpressionInterface
 	 */
 	private $operand;
 }

@@ -6,8 +6,8 @@
 namespace NoreSources\Expression;
 
 /**
- * Base class of all expressions
+ * Interface of all expressions
  */
-interface Expression
+interface ExpressionInterface
 {
 }

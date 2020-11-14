@@ -14,7 +14,9 @@ class ObjectProperty extends Identifier
 	/**
 	 *
 	 * @param string $name
+	 *        	Property name
 	 * @param Identifier $object
+	 *        	Owning object name
 	 */
 	public function __construct($name, Identifier $object = null)
 	{
