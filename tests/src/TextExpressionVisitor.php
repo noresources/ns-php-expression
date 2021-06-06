@@ -1,15 +1,14 @@
 <?php
 /**
- * Copyright © 2012 - 2020 by Renaud Guillard (dev@nore.fr)
+ * Copyright © 2012 - 2021 by Renaud Guillard (dev@nore.fr)
  * Distributed under the terms of the MIT License, see LICENSE
  */
 namespace NoreSources\Test\Expression;
 
-use NoreSources\TypeConversion as C;
-use NoreSources\TypeDescription;
-use NoreSources\TypeDescription as D;
 use NoreSources\Expression\ExpressionInterface;
 use NoreSources\Expression\Identifier;
+use NoreSources\Type\TypeConversion;
+use NoreSources\Type\TypeDescription;
 
 /**
  * Proof of Concept visitor displaying textual representation of the expression
@@ -119,11 +118,11 @@ class TextExpressionInterfaceVisitor implements
 			$value = $expression->getValue();
 			if (\is_string($value))
 				$value = '"' . str_replace('"', '\\"', $value) . '"';
-			$this->text .= C::toString($value);
+			$this->text .= TypeConversion::toString($value);
 		}
-		elseif (D::hasStringRepresentation($expression))
+		elseif (TypeDescription::hasStringRepresentation($expression))
 		{
-			$this->text .= C::toString($expression);
+			$this->text .= TypeConversion::toString($expression);
 		}
 		elseif ($expression instanceof VisitableProcedureInvocation)
 		{
@@ -140,7 +139,8 @@ class TextExpressionInterfaceVisitor implements
 		else
 			throw new ExpressionInterfaceVisitException($this,
 				$expression,
-				'Unrecognized expression ' . D::getName($expression));
+				'Unrecognized expression ' .
+				TypeDescription::getName($expression));
 	}
 
 	private function space()

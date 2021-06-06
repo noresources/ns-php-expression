@@ -1,15 +1,18 @@
 <?php
 /**
- * Copyright © 2012 - 2020 by Renaud Guillard (dev@nore.fr)
+ * Copyright © 2012 - 2021 by Renaud Guillard (dev@nore.fr)
  * Distributed under the terms of the MIT License, see LICENSE
  */
 namespace NoreSources\Expression;
+
+use NoreSources\Type\ArrayRepresentation;
+use NoreSources\Type\TypeDescription;
 
 /**
  * A list of arbitrary expressions
  */
 class Set implements ExpressionInterface, \ArrayAccess, \Countable,
-	\IteratorAggregate, \NoreSources\ArrayRepresentation
+	\IteratorAggregate, ArrayRepresentation
 {
 
 	/**
@@ -39,7 +42,7 @@ class Set implements ExpressionInterface, \ArrayAccess, \Countable,
 	{
 		if (!$this->isValidElement($value))
 			throw new \InvalidArgumentException(
-				\NoreSources\TypeDescription::getName($value) .
+				TypeDescription::getName($value) .
 				' is not a valid value');
 
 		$this->expressions->offsetSet($offset, $value);
@@ -69,7 +72,7 @@ class Set implements ExpressionInterface, \ArrayAccess, \Countable,
 	{
 		if (!$this->isValidElement($value))
 			throw new \InvalidArgumentException(
-				\NoreSources\TypeDescription::getName($value) .
+				TypeDescription::getName($value) .
 				' is not a valid value');
 
 		$this->expressions->append($value);
